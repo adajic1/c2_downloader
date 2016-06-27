@@ -1,0 +1,36 @@
+UPUTE ZA INSTALACIJU NA WINDOWS
+-------------------------------
+Raspakujte casper_phantom.zip;
+Prebacite oba foldera u 'C:\', dakle foldere:
+	casperjs
+	phantomjs
+Dodajte dvije environment variable (Control Panel -> Edit eivironment variable -> Path -> New):
+	C:\casperjs\bin\
+	C:\phantomjs\
+File 'download.js' prebacite u folder u koji zelite da downloadujete kurseve sa c2;
+Recimo neka je to folder 'Downloads' koji se nalazi na desktopu;
+
+UPUTE ZA INSTALACIJU NA UBUNTU
+------------------------------
+sudo add-apt-repository ppa:chris-lea/node.js
+sudo apt-get update
+sudo apt-get install nodejs
+sudo npm install -g casperjs
+sudo npm install -g phantomjs-prebuilt
+export PATH=$PATH:/usr/lib/node_modules/phantomjs-prebuilt/lib/phantom/bin
+
+test:
+casperjs -v
+phantomjs -v
+
+UPOTREBA
+--------
+Otvorite cmd (ili terminal na ubuntu)
+Navigirajte se u folder 'Downloads';
+cd C:\Users\<USER>\Desktop\Downloads
+Zatim kucate komandu cija je sintaksa sljedeca:
+casperjs --load-images=no --ignore-ssl-errors=yes download.js <id_of_subject> [<username> <password>]
+Na primjer zelimo skinuti sve sto ima na c2 za predmet TP (id predmeta pogledate na c2. Za TP je 76):
+casperjs --load-images=no --ignore-ssl-errors=yes download.js 76
+Ako kurs zahtijeva prethodni login, onda u produzetku komande pisemo argumente username i password:
+casperjs --load-images=no --ignore-ssl-errors=yes download.js 76 <username> <password>
