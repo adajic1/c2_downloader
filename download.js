@@ -100,14 +100,14 @@ page.onLoadFinished = function(status) {
 									if (!results[2]) return '';
 									return decodeURIComponent(results[2].replace(/\+/g, " "));
 								}
-								$("tr[id^='section-']").each(function(){
+								$("tr[id^='section-'],li[id^='section-']").each(function(){
 									$(this).find("a[href^='"+begUrl+"/mod/resource/view.php?id=']").each(function() {
 										vrati+=getParameterByName('id',$(this).attr('href'))+" ";											
 									});
 									vrati+="\n";
 								});								
 								return vrati;
-							},begUrl);		
+							},begUrl);	
 							naslov=page.evaluate(function() {
 								return $('title').text();
 							});
