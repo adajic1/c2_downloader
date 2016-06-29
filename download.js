@@ -1,4 +1,4 @@
-// SYTNTAX
+// SYNTAX
 // casperjs --ignore-ssl-errors=yes download.js <id_of_subject> [<username> <password>]
 // EXAMPLE CALL TO DOWNLOAD TP
 // casperjs --ignore-ssl-errors=yes download.js 76
