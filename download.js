@@ -118,7 +118,7 @@ page.onLoadFinished = function(status) {
 									new_subjectTitle+=subjectTitle.charAt(poz);
 								poz++;
 							}
-							subjectTitle=new_subjectTitle;
+							subjectTitle=new_subjectTitle.trim();
 							console.log(subjectTitle);
 							if (!fs.exists(subjectTitle))
 								fs.makeDirectory(subjectTitle);
