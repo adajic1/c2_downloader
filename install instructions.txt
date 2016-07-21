@@ -29,8 +29,8 @@ Otvorite cmd (ili terminal na ubuntu)
 Navigirajte se u folder 'Downloads';
 cd C:\Users\<USER>\Desktop\Downloads
 Zatim kucate komandu cija je sintaksa sljedeca:
-casperjs --ignore-ssl-errors=yes download.js <id_of_subject> [<username> <password>]
+casperjs --ignore-ssl-errors=yes --web-security=no download.js <id_of_subject> [<username> <password>]
 Na primjer zelimo skinuti sve sto ima na c2 za predmet TP (id predmeta pogledate na c2. Za TP je 76):
-casperjs --ignore-ssl-errors=yes download.js 76
+casperjs --ignore-ssl-errors=yes --web-security=no download.js 76
 Ako kurs zahtijeva prethodni login, onda u produzetku komande pisemo argumente username i password:
-casperjs --ignore-ssl-errors=yes download.js 76 <username> <password>
+casperjs --ignore-ssl-errors=yes --web-security=no download.js 76 <username> <password>
