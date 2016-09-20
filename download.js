@@ -101,7 +101,9 @@ page.onLoadFinished = function(status) {
 								}
 								$("tr[id^='section-'],li[id^='section-']").each(function(){
 									$(this).find("a[href^='"+begUrl+"/mod/resource/view.php?id=']").each(function() {
-										vrati+=getParameterByName('id',$(this).attr('href'))+" ";											
+										ajdi=getParameterByName('id',$(this).attr('href'));
+										// if (ajdi!="36835")
+											vrati+=ajdi+" ";											
 									});
 									vrati+="\n";
 								});								
