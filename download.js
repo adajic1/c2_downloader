@@ -1,13 +1,13 @@
 // SYNTAX
-// casperjs --ignore-ssl-errors=yes --web-security=no download.js <id_of_subject> [<username> <password>]
+// casperjs download.js <id_of_subject> [<username> <password>]
 // EXAMPLE CALL TO DOWNLOAD TP
-// casperjs --ignore-ssl-errors=yes --web-security=no download.js 76
+// casperjs download.js 76
 /* ############################################################ */
 /* ################### DEVELOPED BY Ice_VII ################### */
 /* ############################################################ */
 
 var startTime=Date.now(); // Start of the program
-var begUrl="http://c2.etf.unsa.ba"; // First part of urls
+var begUrl="https://c2.etf.unsa.ba"; // First part of urls
 var fs = require('fs'); // To work with files
 var casperReq = require('casper');
 var page = require('webpage').create(); // To use phantomjs page object
@@ -35,7 +35,7 @@ console.log("----------BY ICE_VII----------");
 console.log("------------------------------");
 
 if (args.length <= 4) {
-  console.log('Syntax: casperjs --ignore-ssl-errors=yes --web-security=no download.js <id_of_subject> [<username> <password>]');
+  console.log('Syntax: casperjs download.js <id_of_subject> [<username> <password>]');
   phantom.exit();
 } else {
 	subjectId=args[4];
@@ -45,7 +45,7 @@ if (args.length <= 4) {
 		if (args.length>6) 
 			pass=args[6];
 		else {
-			console.log('Syntax: casperjs --ignore-ssl-errors=yes --web-security=no download.js <id_of_subject> [<username> <password>]');
+			console.log('Syntax: casperjs download.js <id_of_subject> [<username> <password>]');
 			phantom.exit();
 		}
 	}
@@ -106,7 +106,7 @@ page.onLoadFinished = function(status) {
 									vrati+="\n";
 								});								
 								return vrati;
-							},begUrl);	
+							},begUrl);
 							subjectTitle=page.evaluate(function() {
 								return $('title').text();
 							});
