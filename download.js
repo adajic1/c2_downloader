@@ -1,7 +1,7 @@
 // SYNTAX
-// casperjs download.js <id_of_subject> [<username> <password>]
+// casperjs --web-security=no download.js <id_of_subject> [<username> <password>]
 // EXAMPLE CALL TO DOWNLOAD TP
-// casperjs download.js 76
+// casperjs --web-security=no download.js 76
 /* ############################################################ */
 /* ################### DEVELOPED BY Ice_VII ################### */
 /* ############################################################ */
@@ -35,7 +35,7 @@ console.log("----------BY ICE_VII----------");
 console.log("------------------------------");
 
 if (args.length <= 4) {
-  console.log('Syntax: casperjs download.js <id_of_subject> [<username> <password>]');
+  console.log('Syntax: casperjs --web-security=no download.js <id_of_subject> [<username> <password>]');
   phantom.exit();
 } else {
 	subjectId=args[4];
@@ -45,7 +45,7 @@ if (args.length <= 4) {
 		if (args.length>6) 
 			pass=args[6];
 		else {
-			console.log('Syntax: casperjs download.js <id_of_subject> [<username> <password>]');
+			console.log('Syntax: casperjs --web-security=no download.js <id_of_subject> [<username> <password>]');
 			phantom.exit();
 		}
 	}
