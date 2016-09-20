@@ -102,7 +102,8 @@ page.onLoadFinished = function(status) {
 								$("tr[id^='section-'],li[id^='section-']").each(function(){
 									$(this).find("a[href^='"+begUrl+"/mod/resource/view.php?id=']").each(function() {
 										ajdi=getParameterByName('id',$(this).attr('href'));
-										// if (ajdi!="36835")
+										// if (ajdi!="45928" && ajdi!="36835") // Prvi file je iz predmeta: 224, Drugi iz predmeta 223
+										// Na njima phantomjs pri downloadu krahira
 											vrati+=ajdi+" ";											
 									});
 									vrati+="\n";
