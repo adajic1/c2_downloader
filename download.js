@@ -5,6 +5,7 @@
 /* ############################################################ */
 /* ################### DEVELOPED BY Ice_VII ################### */
 /* ############################################################ */
+// https://bitbucket.org/ariya/phantomjs/downloads
 
 var startTime=Date.now(); // Start of the program
 var begUrl="https://c2.etf.unsa.ba"; // First part of urls
@@ -28,6 +29,73 @@ var resurs; // Is the current link a file resource or not
 var done; // Checking resourceRequests only while done==false
 var subjectTitle=""; // Will read it from the <title> tag from the website
 var tr=-1; // Index of the id currently being processed
+
+/* 
+ * Modified decode function from casper.js clientutils 
+ * https://github.com/casperjs/casperjs/blob/master/modules/clientutils.js
+*/
+var BASE64_DECODE_CHARS = [
+    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63,
+    52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1,
+    -1,  0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14,
+    15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1,
+    -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+    41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1, -1, -1
+];
+
+/**
+ * Decodes a base64 encoded string. Succeeds where window.atob() fails.
+ *
+ * @param  String  str  The base64 encoded contents
+ * @return string
+ */
+var decode = function decode(file, str) {
+    /*eslint max-statements:0, complexity:0 */
+    var c1, c2, c3, c4, i = 0, len = str.length;
+	var fOut = fs.open(file, 'wb');
+    while (i < len) {
+        do {
+            c1 = BASE64_DECODE_CHARS[str.charCodeAt(i++) & 0xff];
+        } while (i < len && c1 === -1);
+        if (c1 === -1) {
+            break;
+        }
+        do {
+            c2 = BASE64_DECODE_CHARS[str.charCodeAt(i++) & 0xff];
+        } while (i < len && c2 === -1);
+        if (c2 === -1) {
+            break;
+        }
+        fOut.write(String.fromCharCode(c1 << 2 | (c2 & 0x30) >> 4));
+        do {
+            c3 = str.charCodeAt(i++) & 0xff;
+            if (c3 === 61) {
+				fOut.close();
+                return 0;
+            }
+            c3 = BASE64_DECODE_CHARS[c3];
+        } while (i < len && c3 === -1);
+        if (c3 === -1) {
+            break;
+        }
+        fOut.write(String.fromCharCode((c2 & 0XF) << 4 | (c3 & 0x3C) >> 2));
+        do {
+            c4 = str.charCodeAt(i++) & 0xff;
+            if (c4 === 61) {
+				fOut.close();
+                return 0;
+            }
+            c4 = BASE64_DECODE_CHARS[c4];
+        } while (i < len && c4 === -1);
+        if (c4 === -1) {
+            break;
+        }
+        fOut.write(String.fromCharCode((c3 & 0x03) << 6 | c4));		
+    }
+	fOut.close();
+};    
 
 console.log("------------------------------");
 console.log("AUTOMATIC C2 COURSE DOWNLOADER");
@@ -101,10 +169,7 @@ page.onLoadFinished = function(status) {
 								}
 								$("tr[id^='section-'],li[id^='section-']").each(function(){
 									$(this).find("a[href^='"+begUrl+"/mod/resource/view.php?id=']").each(function() {
-										ajdi=getParameterByName('id',$(this).attr('href'));
-										// if (ajdi!="45928" && ajdi!="36835") // Prvi file je iz predmeta: 224, Drugi iz predmeta 223
-										// Na njima phantomjs pri downloadu krahira
-											vrati+=ajdi+" ";											
+										vrati+=getParameterByName('id',$(this).attr('href'))+" ";											
 									});
 									vrati+="\n";
 								});								
@@ -199,7 +264,10 @@ function download() {
 		done=true;
 		if (resurs) {
 			console.log("    "+(tr+1).toString()+"/"+idevi.length+" Saving "+filename+" id="+idevi[tr]);
-			this.download(linkFile, folder+"/"+filename);
+			// this.download(linkFile, folder+"/"+filename); 
+			// Fails for some files like: "36835" from subject 223
+			// Probably GC related problem in base64decode process
+			decode(folder+"/"+filename, this.base64encode(linkFile));
 		} else {
 			console.log("    "+(tr+1).toString()+"/"+idevi.length+" Saving "+idevi[tr]+".html id="+idevi[tr]);
 			var html = this.getPageContent();
