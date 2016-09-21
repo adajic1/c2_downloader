@@ -264,10 +264,11 @@ function download() {
 		done=true;
 		if (resurs) {
 			console.log("    "+(tr+1).toString()+"/"+idevi.length+" Saving "+filename+" id="+idevi[tr]);
-			// this.download(linkFile, folder+"/"+filename); 
-			// Fails for some files like: "36835" from subject 223
-			// Probably GC related problem in base64decode process
-			decode(folder+"/"+filename, this.base64encode(linkFile));
+			
+			// this.download(linkFile, folder+"/"+filename); // Fails for some files like: "36835" from subject 223
+			// Probably GC related problem in base64 decoding process...
+			
+			decode(folder+"/"+filename, this.base64encode(linkFile)); // This version of download function works excellent though.
 		} else {
 			console.log("    "+(tr+1).toString()+"/"+idevi.length+" Saving "+idevi[tr]+".html id="+idevi[tr]);
 			var html = this.getPageContent();
