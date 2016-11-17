@@ -2,9 +2,9 @@
 // casperjs --web-security=no download.js <id_of_subject> [<username> <password>]
 // EXAMPLE CALL TO DOWNLOAD TP
 // casperjs --web-security=no download.js 76
-/* ############################################################ */
-/* ################### DEVELOPED BY Ice_VII ################### */
-/* ############################################################ */
+/* ############################################################# */
+/* ################### DEVELOPED BY Ice_VII #################### */
+/* ############################################################# */
 // https://bitbucket.org/ariya/phantomjs/downloads
 
 var startTime=Date.now(); // Start of the program
