@@ -4,7 +4,7 @@ Raspakujte casper_phantom.zip;
 Prebacite oba foldera u 'C:\', dakle foldere:
 	casperjs
 	phantomjs
-Dodajte dvije environment variable (Control Panel -> Edit environment variables -> Path -> New):
+Dodajte sljedeće dvije environment putanje (Control Panel -> Edit environment variables -> Path -> New):
 	C:\casperjs\bin\
 	C:\phantomjs\
 File 'download.js' prebacite u folder u koji zelite da downloadujete kurseve sa c2;
