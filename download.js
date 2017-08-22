@@ -2,9 +2,9 @@
 // casperjs --web-security=no download.js <id_of_subject> [<username> <password>]
 // EXAMPLE CALL TO DOWNLOAD TP
 // casperjs --web-security=no download.js 76
-/* ############################################################# */
-/* ################### DEVELOPED BY Ice_VII #################### */
-/* ############################################################# */
+/* ############################################################ */
+/* ################### DEVELOPED BY Ice_VII ################### */
+/* ############################################################ */
 // https://bitbucket.org/ariya/phantomjs/downloads
 
 var startTime=Date.now(); // Start of the program
@@ -190,9 +190,9 @@ page.onLoadFinished = function(status) {
 							console.log(subjectTitle);
 							if (!fs.exists(subjectTitle))
 								fs.makeDirectory(subjectTitle);
-							page.zoomFactor=1;
-							page.render(subjectTitle+'/Browser_screenshot.png');
-							console.log("Browser_screenshot.png has been generated");	
+							// page.zoomFactor=1;
+							// page.render(subjectTitle+'/Browser_screenshot.png');
+							// console.log("Browser_screenshot.png has been generated");	
 							folderi=podaci.split("\n");
 							for (var i=0; i<folderi.length-1; i++) {
 								var ids=folderi[i].split(" ");
@@ -217,7 +217,7 @@ page.onLoadFinished = function(status) {
 };
 
 function onResourceRequested(requestData, request) {
-	if (!done && requestData.url.indexOf(begUrl+"/file.php/")!=-1) {
+	if (!done && requestData.url.indexOf(begUrl+"/pluginfile.php/")!=-1) {
 		linkFile=requestData.url;	
 		filename=getFilename(linkFile);
 		resurs=true;
@@ -233,14 +233,13 @@ function download() {
 		console.log("FINISH");
 		console.log("Total download time: "+difference.toString()+" secs");
 		if (idevi.length==0) {
-			var message="\nNOTES:\nThe process finished with zero downloaded files? Try to use your credentials instead of the guest login syntax. ";
-			message+="\nIt finished with zero downloaded files AGAIN? Enroll yourself manually on the course, then try again. ";
-			message+="\nCheck the image "+subjectTitle+"/Browser_screenshot.png to get an idea what's happening in the headless webkit browser.";
+			var message="\nNOTES:\nThe process finished with zero downloaded files? Try to use your credentials instead of the guest login syntax.";
+			message+="\nIt finished with zero downloaded files AGAIN? Enroll yourself manually on the course, then try again.";
 			console.log(message);
 		}
 		phantom.exit();
 	}
-	var downlink=begUrl+"/mod/resource/view.php?inpopup=true&id="+idevi[tr];
+	var downlink=begUrl+"/mod/resource/view.php?redirect=1&id="+idevi[tr];
 	folder=subjectTitle+"/"+fold[tr];
 	if (folder!=oldFolder) {
 		console.log("Folder: "+fold[tr]);
