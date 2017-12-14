@@ -124,6 +124,17 @@ function getFilename(str) {
     return str.split('\\').pop().split('/').pop();
 }
 
+page.onError = function(msg, trace) {
+  var msgStack = [msg];
+  if (trace && trace.length) {
+    msgStack.push('TRACE:');
+    trace.forEach(function(t) {
+      msgStack.push(' -> ' + t.file + ': ' + t.line + (t.function ? ' (in function "' + t.function +'")' : ''));
+    });
+  }
+  // console.error(msgStack.join('\n')); // Keep commented if you don't want to see some weird error logs from require.min.js (just ignore them)
+};
+
 page.open(url);			
 page.onLoadFinished = function(status) {
 	if (status === 'success') { // The website is opened successfully
