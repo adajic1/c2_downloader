@@ -121,7 +121,12 @@ if (args.length <= 4) {
 var url = begUrl+"/course/view.php?id="+subjectId;
 
 function getFilename(str) {
-    return str.split('\\').pop().split('/').pop();
+	var curr_str=str.split('\\').pop().split('/').pop();
+	pos=curr_str.indexOf("?");
+	if (pos!==-1) {
+		curr_str=curr_str.substring(0,pos);
+	}	
+    return decodeURI(curr_str);
 }
 
 page.onError = function(msg, trace) {
